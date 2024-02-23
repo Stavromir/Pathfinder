@@ -1,23 +1,61 @@
+#spring:
+##  datasource:
+##    driver-class-name: com.mysql.cj.jdbc.Driver
+##    url: jdbc:mysql://localhost:3306/pathfinder?createDatabaseIfNotExist=true
+##    username: root
+##    password: choban1na
+##  jpa:
+##    database-platform: org.hibernate.dialect.MySQLDialect
+##    properties:
+##      hibernate:
+##        format_sql: TRUE
+##    hibernate:
+##      ddl-auto: update
+##logging:
+##  level:
+##    org:
+##      hibernate:
+##        SQL: DEBUG
+##        type:
+##          descriptor: TRACE
+
+
 spring:
   datasource:
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/mobilele?createDatabaseIfNotExist=true
+    driverClassName: com.mysql.cj.jdbc.Driver
+    url: "jdbc:mysql://localhost:3306/pathfinder?allowPublicKeyRetrieval=true&useSSL=false&createDatabaseIfNotExist=true&serverTimezone=UTC"
     username: root
     password: choban1na
+  servlet:
+    multipart:
+      max-file-size: 1MB
+      max-request-size: 5MB
+  mvc:
+    hiddenmethod:
+      filter:
+        enabled: true
+      #sql:
+      #init:
+      #mode: always
   jpa:
-    database-platform: org.hibernate.dialect.MySQLDialect
-    properties:
-      hibernate:
-        format_sql: TRUE
+    # Choose either MySQL 8 or MySQL 5 below
+    # For MySQL 8
+    database-platform: org.hibernate.dialect.MySQL8Dialect
+    #For MySQL 5
+    #database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
     hibernate:
       ddl-auto: update
-logging:
-  level:
-    org:
+    open-in-view: false
+    properties:
       hibernate:
-        SQL: DEBUG
-        type:
-          descriptor: TRACE
+        format_sql: true
+    defer-datasource-initialization: true
+  #Cloudinary Properties
+  #cloudinary:
+  #api-key:
+  #api-secret:
+  #cloud-name:
+
 
 
 
