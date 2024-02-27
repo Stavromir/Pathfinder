@@ -10,18 +10,17 @@ import jakarta.persistence.Table;
 @Table(name = "roles")
 public class RoleEntity extends BaseEntity {
 
-    private RoleNameEnum name;
+    private RoleNameEnum role;
 
     public RoleEntity() {
         super();
     }
-
     @Enumerated(EnumType.STRING)
-    public RoleNameEnum getName() {
-        return name;
+    public RoleNameEnum getRole() {
+        return role;
     }
 
-    public void setName(RoleNameEnum name) {
-        this.name = name;
+    public void setRole(RoleNameEnum role) {
+        this.role = role;
     }
 }

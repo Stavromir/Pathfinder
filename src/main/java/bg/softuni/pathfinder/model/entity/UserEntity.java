@@ -12,9 +12,8 @@ public class UserEntity extends BaseEntity {
     private String username;
     private String fullName;
     private Integer age;
-    private String email;
     private String password;
-    private Set<RoleEntity> role;
+    private Set<RoleEntity> roles;
     private LevelEnum level;
 
     public UserEntity() {
@@ -44,15 +43,6 @@ public class UserEntity extends BaseEntity {
         this.age = age;
     }
 
-    @Column(nullable = false)
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
     public String getPassword() {
         return password;
     }
@@ -62,12 +52,12 @@ public class UserEntity extends BaseEntity {
     }
 
     @ManyToMany
-    public Set<RoleEntity> getRole() {
-        return role;
+    public Set<RoleEntity> getRoles() {
+        return roles;
     }
 
-    public void setRole(Set<RoleEntity> role) {
-        this.role = role;
+    public void setRoles(Set<RoleEntity> roles) {
+        this.roles = roles;
     }
 
     @Enumerated(EnumType.STRING)
