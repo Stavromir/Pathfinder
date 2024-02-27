@@ -1,31 +1,9 @@
-#spring:
-##  datasource:
-##    driver-class-name: com.mysql.cj.jdbc.Driver
-##    url: jdbc:mysql://localhost:3306/pathfinder?createDatabaseIfNotExist=true
-##    username: root
-##    password: choban1na
-##  jpa:
-##    database-platform: org.hibernate.dialect.MySQLDialect
-##    properties:
-##      hibernate:
-##        format_sql: TRUE
-##    hibernate:
-##      ddl-auto: update
-##logging:
-##  level:
-##    org:
-##      hibernate:
-##        SQL: DEBUG
-##        type:
-##          descriptor: TRACE
-
-
 spring:
   datasource:
     driverClassName: com.mysql.cj.jdbc.Driver
     url: "jdbc:mysql://localhost:3306/pathfinder?allowPublicKeyRetrieval=true&useSSL=false&createDatabaseIfNotExist=true&serverTimezone=UTC"
-    username: root
-    password: choban1na
+    username: ${MYSQL_USER:root}
+    password: ${MYSQL_PASSWORD:}
   servlet:
     multipart:
       max-file-size: 1MB
@@ -36,7 +14,7 @@ spring:
         enabled: true
   sql:
     init:
-      mode: embedded
+      mode: never
   jpa:
     # Choose either MySQL 8 or MySQL 5 below
     # For MySQL 8
