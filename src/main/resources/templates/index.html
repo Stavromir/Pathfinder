@@ -70,7 +70,10 @@
 
     <!-- Portfolio -->
     <section class="gallery">
-        <img th:each="p : ${pictures}" th:src="${p}" width="200px" height="200px" alt="">
+        <a th:each="p : ${pictures}" th:href="${p}">
+            <img th:src="${p}" width="200px" height="200px" alt="">
+        </a>
+
     </section>
 
     <!-- <script th:src="@{/js/weather.js}"></script> -->

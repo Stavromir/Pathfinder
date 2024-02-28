@@ -10,6 +10,9 @@
             <form   th:object="${userRegisterBindingModel}"
                     th:action="@{/users/register}"
                     th:method="POST">
+                <div th:if="${userExist}" class="alert-danger text-center">
+                    <label for="inputUsername" class="col-form-label ">User already exist!</label>
+                </div>
                 <div>
                     <div class="col-auto">
                         <label for="inputUsername" class="col-form-label ">Username</label>

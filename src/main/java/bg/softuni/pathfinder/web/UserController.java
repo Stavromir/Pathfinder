@@ -40,7 +40,12 @@ public class UserController {
 
 
     @GetMapping("/register")
-    public String register() {
+    public String register(Model model) {
+
+        if (!model.containsAttribute("userExist")) {
+            model.addAttribute("userExist", false);
+        }
+
         return "register";
     }
 
@@ -51,9 +56,19 @@ public class UserController {
         if (bindingResult.hasErrors() || !userRegisterBindingModel.getPassword()
                 .equals(userRegisterBindingModel.getConfirmPassword())) {
             redirectAttributes
-                    .addFlashAttribute("userRegisterBindingModel", userRegisterBindingModel);
+                    .addFlashAttribute("userRegisterBindingModel", userRegisterBindingModel)
+                    .addFlashAttribute("org.springframework.validation.BindingResult.userRegisterBindingModel",
+                            bindingResult);
+
+            return "redirect:register";
+        }
+
+        if (userService.userAlreadyExist(userRegisterBindingModel.getUsername(),
+                userRegisterBindingModel.getEmail())) {
 
             redirectAttributes
+                    .addFlashAttribute("userExist", true)
+                    .addFlashAttribute("userRegisterBindingModel", userRegisterBindingModel)
                     .addFlashAttribute("org.springframework.validation.BindingResult.userRegisterBindingModel",
                             bindingResult);
 
@@ -69,7 +84,11 @@ public class UserController {
 
     @GetMapping("/login")
     public String login(Model model) {
-        model.addAttribute("isExists", true);
+
+        if (!model.containsAttribute("isExists")) {
+            model.addAttribute("isExists", true);
+        }
+
         return "login";
     }
 

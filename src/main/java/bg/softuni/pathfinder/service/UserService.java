@@ -14,4 +14,7 @@ public interface UserService {
 
 
     UserServiceModel findById(Long id);
+
+
+    boolean userAlreadyExist(String username, String email);
 }

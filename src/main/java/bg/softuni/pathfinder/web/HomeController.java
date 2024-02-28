@@ -18,8 +18,7 @@ public class HomeController {
     @GetMapping("/")
     public String index(Model model){
 
-        model
-                .addAttribute("pictures",
+        model.addAttribute("pictures",
                         pictureService.findAllUrls());
 
         return "index";
