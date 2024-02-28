@@ -1,14 +1,15 @@
-package bg.softuni.pathfinder.model.entity;
+package bg.softuni.pathfinder.model.service;
 
+import bg.softuni.pathfinder.model.entity.CategoryEntity;
+import bg.softuni.pathfinder.model.entity.PictureEntity;
+import bg.softuni.pathfinder.model.entity.UserEntity;
 import bg.softuni.pathfinder.model.entity.enums.LevelEnum;
-import jakarta.persistence.*;
 
 import java.util.Set;
 
-@Entity
-@Table(name = "routes")
-public class RouteEntity extends BaseEntity{
+public class RouteServiceModel {
 
+    private Long id;
     private String description;
     private String gpxCoordinates;
     private LevelEnum level;
@@ -18,11 +19,17 @@ public class RouteEntity extends BaseEntity{
     private Set<PictureEntity> pictures;
     private Set<CategoryEntity> categories;
 
-    public RouteEntity() {
-        super();
+    public RouteServiceModel() {
     }
 
-    @Column(columnDefinition = "TEXT")
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
     public String getDescription() {
         return description;
     }
@@ -31,7 +38,6 @@ public class RouteEntity extends BaseEntity{
         this.description = description;
     }
 
-    @Column(columnDefinition = "LONGTEXT")
     public String getGpxCoordinates() {
         return gpxCoordinates;
     }
@@ -40,7 +46,6 @@ public class RouteEntity extends BaseEntity{
         this.gpxCoordinates = gpxCoordinates;
     }
 
-    @Enumerated(EnumType.STRING)
     public LevelEnum getLevel() {
         return level;
     }
@@ -49,7 +54,6 @@ public class RouteEntity extends BaseEntity{
         this.level = level;
     }
 
-    @Column(nullable = false, unique = true)
     public String getName() {
         return name;
     }
@@ -58,7 +62,6 @@ public class RouteEntity extends BaseEntity{
         this.name = name;
     }
 
-    @ManyToOne
     public UserEntity getAuthor() {
         return author;
     }
@@ -75,7 +78,6 @@ public class RouteEntity extends BaseEntity{
         this.videoUrl = videoUrl;
     }
 
-    @OneToMany(mappedBy = "route", fetch = FetchType.EAGER)
     public Set<PictureEntity> getPictures() {
         return pictures;
     }
@@ -84,7 +86,6 @@ public class RouteEntity extends BaseEntity{
         this.pictures = pictures;
     }
 
-    @ManyToMany(fetch = FetchType.EAGER)
     public Set<CategoryEntity> getCategories() {
         return categories;
     }
