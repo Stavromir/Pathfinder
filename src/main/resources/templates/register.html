@@ -7,7 +7,7 @@
     <h1 class="border-bottom">Register</h1>
     <div class="d-flex justify-content-center ">
         <div class="row g-3">
-            <form
+            <form   th:object="${userRegisterBindingModel}"
                     th:action="@{/users/register}"
                     th:method="POST">
                 <div>
@@ -15,7 +15,7 @@
                         <label for="inputUsername" class="col-form-label ">Username</label>
                     </div>
                     <div class="col-auto">
-                        <input name="username"
+                        <input th:field="*{username}"
                                
                                required minlength="5" maxlength="20"
                                type="text"
