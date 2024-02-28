@@ -8,8 +8,8 @@
     <div class="d-flex justify-content-center ">
         <div class="row g-3">
             <form
-                    action="/"
-                    method="">
+                    th:action="@{/users/register}"
+                    th:method="POST">
                 <div>
                     <div class="col-auto">
                         <label for="inputUsername" class="col-form-label ">Username</label>
@@ -25,7 +25,7 @@
                         <small id="usernameError"
                                class="invalid-feedback bg-danger rounded">Username length must be more than 3 characters</small>
 
-                        <small id="usernameUniqueError"
+                        <small th:if="${false}" id="usernameUniqueError"
                                class=" bg-danger rounded">Username is already occupied</small>
 
                     </div>
