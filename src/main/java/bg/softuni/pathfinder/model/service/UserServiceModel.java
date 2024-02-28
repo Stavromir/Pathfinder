@@ -1,14 +1,13 @@
-package bg.softuni.pathfinder.model.entity;
+package bg.softuni.pathfinder.model.service;
 
+import bg.softuni.pathfinder.model.entity.RoleEntity;
 import bg.softuni.pathfinder.model.entity.enums.LevelEnum;
-import jakarta.persistence.*;
 
 import java.util.Set;
 
-@Entity
-@Table(name = "users")
-public class UserEntity extends BaseEntity {
+public class UserServiceModel {
 
+    private Long id;
     private String username;
     private String fullName;
     private String email;
@@ -17,13 +16,21 @@ public class UserEntity extends BaseEntity {
     private Set<RoleEntity> roles;
     private LevelEnum level;
 
-    public UserEntity() {
+    public UserServiceModel() {
     }
 
-    @Column(nullable = false, unique = true)
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
     public String getUsername() {
         return username;
     }
+
     public void setUsername(String username) {
         this.username = username;
     }
@@ -36,7 +43,6 @@ public class UserEntity extends BaseEntity {
         this.fullName = fullName;
     }
 
-    @Column(unique = true)
     public String getEmail() {
         return email;
     }
@@ -61,7 +67,6 @@ public class UserEntity extends BaseEntity {
         this.password = password;
     }
 
-    @ManyToMany
     public Set<RoleEntity> getRoles() {
         return roles;
     }
@@ -70,7 +75,6 @@ public class UserEntity extends BaseEntity {
         this.roles = roles;
     }
 
-    @Enumerated(EnumType.STRING)
     public LevelEnum getLevel() {
         return level;
     }
