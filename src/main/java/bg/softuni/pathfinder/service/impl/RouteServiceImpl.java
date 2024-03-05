@@ -1,6 +1,8 @@
 package bg.softuni.pathfinder.service.impl;
 
 import bg.softuni.pathfinder.model.entity.PictureEntity;
+import bg.softuni.pathfinder.model.entity.RouteEntity;
+import bg.softuni.pathfinder.model.service.RouteServiceModel;
 import bg.softuni.pathfinder.model.view.RouteViewModel;
 import bg.softuni.pathfinder.repository.RouteRepository;
 import bg.softuni.pathfinder.service.RouteService;
@@ -39,5 +41,13 @@ public class RouteServiceImpl implements RouteService {
                     return routeViewModel;
                 })
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public void addNewRoute(RouteServiceModel routeServiceModel) {
+
+        RouteEntity route = modelMapper.map(routeServiceModel, RouteEntity.class);
+
+        routeRepository.save(route);
     }
 }
