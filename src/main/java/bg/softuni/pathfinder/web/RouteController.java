@@ -4,21 +4,16 @@ import bg.softuni.pathfinder.model.binding.RouteAddBindingModel;
 import bg.softuni.pathfinder.model.entity.enums.CategoryNameEnum;
 import bg.softuni.pathfinder.model.entity.enums.LevelEnum;
 import bg.softuni.pathfinder.model.service.RouteServiceModel;
-import bg.softuni.pathfinder.model.view.RouteViewModel;
 import bg.softuni.pathfinder.service.RouteService;
 import jakarta.validation.Valid;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.io.IOException;
-import java.util.List;
 
 @Controller
 @RequestMapping("/routes")
@@ -48,7 +43,7 @@ public class RouteController {
     }
 
     @GetMapping("/all")
-    public String route(Model model) {
+    public String all(Model model) {
 
         model.addAttribute("routes", routeService
                 .findAllRouteView());
@@ -56,15 +51,21 @@ public class RouteController {
         return "routes";
     }
 
+    @GetMapping("/details/{id}")
+    public String details(@PathVariable Long id) {
+
+        return "route-details";
+    }
+
     @GetMapping("/add")
-    public String addRoute() {
+    public String add() {
 
         return "add-route";
     }
 
     @PostMapping("/add")
-    public String addRoute(@Valid RouteAddBindingModel routeAddBindingModel,
-                           BindingResult bindingResult, RedirectAttributes redirectAttributes) throws IOException {
+    public String add(@Valid RouteAddBindingModel routeAddBindingModel,
+                      BindingResult bindingResult, RedirectAttributes redirectAttributes) throws IOException {
 
         if (bindingResult.hasErrors()) {
             redirectAttributes
@@ -83,10 +84,7 @@ public class RouteController {
 
         routeService.addNewRoute(routeServiceModel);
 
-
-
-
-        return "redirect:/all";
+        return "redirect:all";
 
     }
 }

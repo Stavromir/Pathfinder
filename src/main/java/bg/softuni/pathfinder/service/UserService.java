@@ -17,4 +17,6 @@ public interface UserService {
 
 
     boolean userAlreadyExist(String username, String email);
+
+    UserEntity findCurrentLoginUserEntity();
 }
