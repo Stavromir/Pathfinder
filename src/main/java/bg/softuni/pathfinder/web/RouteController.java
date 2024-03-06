@@ -52,7 +52,9 @@ public class RouteController {
     }
 
     @GetMapping("/details/{id}")
-    public String details(@PathVariable Long id) {
+    public String details(@PathVariable Long id, Model model) {
+
+        model.addAttribute("route", routeService.findRouteById(id));
 
         return "route-details";
     }

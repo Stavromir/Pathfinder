@@ -3,6 +3,7 @@ package bg.softuni.pathfinder.service.impl;
 import bg.softuni.pathfinder.model.entity.PictureEntity;
 import bg.softuni.pathfinder.model.entity.RouteEntity;
 import bg.softuni.pathfinder.model.service.RouteServiceModel;
+import bg.softuni.pathfinder.model.view.RouteDetailsViewModel;
 import bg.softuni.pathfinder.model.view.RouteViewModel;
 import bg.softuni.pathfinder.repository.RouteRepository;
 import bg.softuni.pathfinder.service.CategoryService;
@@ -68,5 +69,12 @@ public class RouteServiceImpl implements RouteService {
 
 
         routeRepository.save(route);
+    }
+
+    @Override
+    public RouteDetailsViewModel findRouteById(Long id) {
+        return routeRepository.findById(id)
+                .map(route -> modelMapper.map(route, RouteDetailsViewModel.class))
+                .orElse(null);
     }
 }
