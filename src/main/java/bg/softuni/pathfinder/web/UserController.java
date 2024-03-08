@@ -12,6 +12,8 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.security.Principal;
+
 @Controller
 @RequestMapping("/users")
 public class UserController {
@@ -82,13 +84,12 @@ public class UserController {
     }
 
 
+    @GetMapping("/profile")
+    public String profile(Principal principal, Model model) {
 
-    @GetMapping("/profile/{id}")
-    public String profile(@PathVariable Long id, Model model) {
+        UserServiceModel user = userService.findByUsername(principal.getName());
 
-        model
-                .addAttribute("user",
-                        modelMapper.map(userService.findById(id), UserViewModel.class));
+        model.addAttribute("user", modelMapper.map(user, UserViewModel.class));
 
         return "profile";
     }

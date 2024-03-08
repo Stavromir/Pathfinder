@@ -26,6 +26,7 @@ public class SecurityConfiguration {
                         // Allow anyone to see the home page, the registration page and the login form
                         .requestMatchers("/").permitAll()
                         .requestMatchers("/users/login", "/users/register", "/users/login-error").anonymous()
+                        .requestMatchers("/admin").hasRole("ADMIN")
                         .anyRequest().authenticated()
         ).formLogin(
                 formLogin ->
@@ -34,7 +35,7 @@ public class SecurityConfiguration {
                                 .usernameParameter("username")
                                 .passwordParameter("password")
                                 .defaultSuccessUrl("/")
-                                .failureForwardUrl("/users/login?error=true")
+                                .failureUrl("/users/login?error=true")
         ).logout(
                 logout -> logout
                         .logoutUrl("/users/logout")
