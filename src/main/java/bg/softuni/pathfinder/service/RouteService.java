@@ -9,7 +9,7 @@ import java.util.List;
 public interface RouteService {
     List<RouteViewModel> findAllRouteView();
 
-    void addNewRoute(RouteServiceModel routeServiceModel);
+//    void addNewRoute(RouteServiceModel routeServiceModel);
 
     RouteDetailsViewModel findRouteById(Long id);
 }

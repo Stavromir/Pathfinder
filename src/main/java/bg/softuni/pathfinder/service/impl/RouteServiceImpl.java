@@ -53,23 +53,6 @@ public class RouteServiceImpl implements RouteService {
                 .collect(Collectors.toList());
     }
 
-    @Override
-    public void addNewRoute(RouteServiceModel routeServiceModel) {
-
-        RouteEntity route = modelMapper.map(routeServiceModel, RouteEntity.class);
-        route.setAuthor(userService.findCurrentLoginUserEntity());
-
-        route.setCategories(routeServiceModel.getCategories()
-                .stream()
-                .map(categoryName -> categoryService.findByName(categoryName))
-                .collect(Collectors.toSet()));
-
-
-
-
-
-        routeRepository.save(route);
-    }
 
     @Override
     public RouteDetailsViewModel findRouteById(Long id) {

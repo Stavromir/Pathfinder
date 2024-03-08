@@ -5,8 +5,9 @@ import bg.softuni.pathfinder.model.entity.enums.LevelEnum;
 import bg.softuni.pathfinder.model.service.UserServiceModel;
 import bg.softuni.pathfinder.repository.UserRepository;
 import bg.softuni.pathfinder.service.UserService;
-import bg.softuni.pathfinder.util.CurrentUser;
 import org.modelmapper.ModelMapper;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -14,45 +15,25 @@ public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
     private final ModelMapper modelMapper;
-    private final CurrentUser currentUser;
+    private final PasswordEncoder passwordEncoder;
 
     public UserServiceImpl(UserRepository userRepository,
                            ModelMapper modelMapper,
-                           CurrentUser currentUser) {
+                           PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
         this.modelMapper = modelMapper;
-        this.currentUser = currentUser;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @Override
     public void registerUser(UserServiceModel userServiceModel) {
 
         UserEntity user = modelMapper.map(userServiceModel, UserEntity.class);
+        user.setPassword(passwordEncoder.encode(userServiceModel.getPassword()));
         user.setLevel(LevelEnum.BEGINNER);
 
         userRepository.save(user);
 
-    }
-
-    @Override
-    public UserServiceModel findUserByUsernameAndPassword(String username, String password) {
-
-        return userRepository
-                .findByUsernameAndPassword(username, password)
-                .map(userEntity -> modelMapper.map(userEntity, UserServiceModel.class))
-                .orElse(null);
-    }
-
-    @Override
-    public void loginUser(Long id, String username) {
-        currentUser.setId(id);
-        currentUser.setUsername(username);
-    }
-
-    @Override
-    public void logOutUser() {
-        currentUser.setUsername(null);
-        currentUser.setId(null);
     }
 
     @Override
@@ -71,9 +52,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserEntity findCurrentLoginUserEntity() {
-        return userRepository.findById(currentUser.getId())
-                .orElse(null);
+    public UserServiceModel findByUsername(String username) {
+
+        return userRepository.findByUsername(username)
+                .map(userEntity -> modelMapper.map(userEntity, UserServiceModel.class))
+                .orElseThrow(() -> new UsernameNotFoundException("User not found"));
     }
 
 

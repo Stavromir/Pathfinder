@@ -1,11 +1,9 @@
 package bg.softuni.pathfinder.web;
 
-import bg.softuni.pathfinder.model.binding.UserLoginBindingModel;
 import bg.softuni.pathfinder.model.binding.UserRegisterBindingModel;
 import bg.softuni.pathfinder.model.service.UserServiceModel;
 import bg.softuni.pathfinder.model.view.UserViewModel;
 import bg.softuni.pathfinder.service.UserService;
-import bg.softuni.pathfinder.util.CurrentUser;
 import jakarta.validation.Valid;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Controller;
@@ -31,11 +29,6 @@ public class UserController {
     @ModelAttribute
     public UserRegisterBindingModel userRegisterBindingModel() {
         return new UserRegisterBindingModel();
-    }
-
-    @ModelAttribute
-    public UserLoginBindingModel userLoginBindingModel() {
-        return new UserLoginBindingModel();
     }
 
 
@@ -83,56 +76,12 @@ public class UserController {
 
 
     @GetMapping("/login")
-    public String login(Model model) {
-
-        if (!model.containsAttribute("isExists")) {
-            model.addAttribute("isExists", true);
-        }
+    public String login() {
 
         return "login";
     }
 
 
-    @PostMapping("/login")
-    public String loginConfirm(@Valid UserLoginBindingModel userLoginBindingModel,
-                               BindingResult bindingResult, RedirectAttributes redirectAttributes) {
-
-        if (bindingResult.hasErrors()) {
-            redirectAttributes
-                    .addFlashAttribute("userLoginBindingModel", userLoginBindingModel)
-                    .addFlashAttribute("org.springframework.validation.BindingResult.userLoginBindingModel",
-                            bindingResult);
-
-            return "redirect:login";
-        }
-
-        UserServiceModel user = userService
-                .findUserByUsernameAndPassword(userLoginBindingModel.getUsername(),
-                        userLoginBindingModel.getPassword());
-
-        if (user == null) {
-            redirectAttributes
-                    .addFlashAttribute("isExists", false)
-                    .addFlashAttribute("userLoginBindingModel", userLoginBindingModel)
-                    .addFlashAttribute("org.springframework.validation.BindingResult.userLoginBindingModel",
-                            bindingResult);
-
-            return "redirect:login";
-        }
-
-        userService.loginUser(user.getId(), user.getUsername());
-
-        return "redirect:/";
-    }
-
-
-    @GetMapping("/logout")
-    public String logout() {
-
-        userService.logOutUser();
-
-        return "redirect:/";
-    }
 
     @GetMapping("/profile/{id}")
     public String profile(@PathVariable Long id, Model model) {
