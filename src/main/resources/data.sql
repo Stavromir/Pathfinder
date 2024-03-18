@@ -10,17 +10,8 @@ VALUES (3, 'USER');
 
 -- some test users
 INSERT INTO users (id, age, full_name, level, password, username)
-VALUES (1, 28, 'Admin Adminov', 'ADVANCED', '12345', 'admin');
+VALUES (1, 28, 'Admin Adminov', 'ADVANCED', '1ae1fe49cc496523b621817d613d4bf17423ea8f7bf4ae903a4f336f8ee8465a9289932cfdde59c26559880382849453', 'admin');
 
-INSERT INTO users (id, age, full_name, level, password, username)
-VALUES (2, 29, 'Moderator Moderatorov', 'INTERMEDIATE', '12345',
-        'moderator');
-
-INSERT INTO users (id, age, full_name, level, password, username)
-VALUES (3, 30, 'User Userov', 'BEGINNER', '12345', 'user');
-
-INSERT INTO users (id, age, full_name, level, password, username)
-VALUES (4, 33, 'Ivan Ivanov', 'BEGINNER', '12345', 'ivan');
 -- user roles
 -- admin
 INSERT INTO users_roles (`user_entity_id`, `roles_id`)
@@ -30,20 +21,20 @@ VALUES (1, 2);
 INSERT INTO users_roles (`user_entity_id`, `roles_id`)
 VALUES (1, 3);
 -- moderator
-INSERT INTO users_roles (`user_entity_id`, `roles_id`)
-VALUES (2, 2);
-INSERT INTO users_roles (`user_entity_id`, `roles_id`)
-VALUES (2, 3);
--- user
-INSERT INTO users_roles (`user_entity_id`, `roles_id`)
-VALUES (3, 3);
--- user 2
-INSERT INTO users_roles (`user_entity_id`, `roles_id`)
-VALUES (4, 3);
-INSERT INTO users_roles (`user_entity_id`, `roles_id`)
-VALUES (4, 2);
-INSERT INTO users_roles (`user_entity_id`, `roles_id`)
-VALUES (4, 1);
+-- INSERT INTO users_roles (`user_entity_id`, `roles_id`)
+-- VALUES (2, 2);
+-- INSERT INTO users_roles (`user_entity_id`, `roles_id`)
+-- VALUES (2, 3);
+-- -- user
+-- INSERT INTO users_roles (`user_entity_id`, `roles_id`)
+-- VALUES (3, 3);
+-- -- user 2
+-- INSERT INTO users_roles (`user_entity_id`, `roles_id`)
+-- VALUES (4, 3);
+-- INSERT INTO users_roles (`user_entity_id`, `roles_id`)
+-- VALUES (4, 2);
+-- INSERT INTO users_roles (`user_entity_id`, `roles_id`)
+-- VALUES (4, 1);
 
 -- categories
 INSERT INTO categories (id, description, name)

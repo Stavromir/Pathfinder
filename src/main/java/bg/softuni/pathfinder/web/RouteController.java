@@ -20,9 +20,11 @@ import java.io.IOException;
 public class RouteController {
 
     private final RouteService routeService;
+    private final ModelMapper modelMapper;
 
     public RouteController(RouteService routeService, ModelMapper modelMapper) {
         this.routeService = routeService;
+        this.modelMapper = modelMapper;
     }
 
     @ModelAttribute
@@ -63,28 +65,28 @@ public class RouteController {
         return "add-route";
     }
 
-//    @PostMapping("/add")
-//    public String add(@Valid RouteAddBindingModel routeAddBindingModel,
-//                      BindingResult bindingResult, RedirectAttributes redirectAttributes) throws IOException {
-//
-//        if (bindingResult.hasErrors()) {
-//            redirectAttributes
-//                    .addFlashAttribute("routeAddBindingModel", redirectAttributes)
-//                    .addFlashAttribute("org.springframework.validation.BindingResult.routeAddBindingModel",
-//                            bindingResult);
-//
-//            return "redirect:addRoute";
-//        }
-//
-//
-//        RouteServiceModel routeServiceModel = modelMapper.map(routeAddBindingModel,
-//                RouteServiceModel.class);
-//        routeServiceModel.setGpxCoordinates(new String(routeAddBindingModel
-//                .getGpxCoordinates().getBytes()));
-//
-//        routeService.addNewRoute(routeServiceModel);
-//
-//        return "redirect:all";
-//
-//    }
+    @PostMapping("/add")
+    public String add(@Valid RouteAddBindingModel routeAddBindingModel,
+                      BindingResult bindingResult, RedirectAttributes redirectAttributes) throws IOException {
+
+        if (bindingResult.hasErrors()) {
+            redirectAttributes
+                    .addFlashAttribute("routeAddBindingModel", redirectAttributes)
+                    .addFlashAttribute("org.springframework.validation.BindingResult.routeAddBindingModel",
+                            bindingResult);
+
+            return "redirect:addRoute";
+        }
+
+
+        RouteServiceModel routeServiceModel = modelMapper.map(routeAddBindingModel,
+                RouteServiceModel.class);
+        routeServiceModel.setGpxCoordinates(new String(routeAddBindingModel
+                .getGpxCoordinates().getBytes()));
+
+        routeService.addNewRoute(routeServiceModel);
+
+        return "redirect:all";
+
+    }
 }

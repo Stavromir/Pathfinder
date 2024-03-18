@@ -53,6 +53,12 @@ public class RouteServiceImpl implements RouteService {
                 .collect(Collectors.toList());
     }
 
+    @Override
+    public void addNewRoute(RouteServiceModel routeServiceModel) {
+        RouteEntity map = modelMapper.map(routeServiceModel, RouteEntity.class);
+        routeRepository.save(map);
+    }
+
 
     @Override
     public RouteDetailsViewModel findRouteById(Long id) {
