@@ -1,5 +1,6 @@
 package bg.softuni.pathfinder.service.impl;
 
+import bg.softuni.pathfinder.config.CloudinaryConfiguration;
 import bg.softuni.pathfinder.service.ImageCloudService;
 import com.cloudinary.Cloudinary;
 import com.cloudinary.utils.ObjectUtils;
@@ -16,13 +17,16 @@ import java.util.UUID;
 public class ImageCloudServiceImpl implements ImageCloudService {
 
 
-    private Cloudinary cloudinary;
+    private final Cloudinary cloudinary;
+    private final CloudinaryConfiguration cloudinaryConfiguration;
 
-    public ImageCloudServiceImpl() {
+    public ImageCloudServiceImpl(CloudinaryConfiguration cloudinaryConfiguration) {
+        this.cloudinaryConfiguration = cloudinaryConfiguration;
+
         this.cloudinary = new Cloudinary(ObjectUtils.asMap(
-                "cloud_name", "dd0ghbz3j",
-                "api_key", "196252561524548",
-                "api_secret", "OMv2kz32YRUUdMSsDsl7qZ-0N1U",
+                "cloud_name", cloudinaryConfiguration.getCloudName(),
+                "api_key", cloudinaryConfiguration.getApiKey(),
+                "api_secret", cloudinaryConfiguration.getApiSecret(),
                 "secure", true));
     }
 
