@@ -26,8 +26,9 @@ public class CommentEntity extends BaseEntity{
         return approved;
     }
 
-    public void setApproved(Boolean approved) {
+    public CommentEntity setApproved(Boolean approved) {
         this.approved = approved;
+        return this;
     }
 
     @Column(nullable = false)
@@ -35,8 +36,9 @@ public class CommentEntity extends BaseEntity{
         return created;
     }
 
-    public void setCreated(LocalDateTime created) {
+    public CommentEntity setCreated(LocalDateTime created) {
         this.created = created;
+        return this;
     }
 
     @Column(columnDefinition = "TEXT", nullable = false)
@@ -44,8 +46,9 @@ public class CommentEntity extends BaseEntity{
         return textContent;
     }
 
-    public void setTextContent(String textContent) {
+    public CommentEntity setTextContent(String textContent) {
         this.textContent = textContent;
+        return this;
     }
 
     @ManyToOne
@@ -53,8 +56,9 @@ public class CommentEntity extends BaseEntity{
         return author;
     }
 
-    public void setAuthor(UserEntity author) {
+    public CommentEntity setAuthor(UserEntity author) {
         this.author = author;
+        return this;
     }
 
     @ManyToOne
@@ -62,7 +66,8 @@ public class CommentEntity extends BaseEntity{
         return route;
     }
 
-    public void setRoute(RouteEntity route) {
+    public CommentEntity setRoute(RouteEntity route) {
         this.route = route;
+        return this;
     }
 }
