@@ -13,6 +13,7 @@ public class RouteAddBindingModel {
     private String name;
     private String description;
     private MultipartFile gpxCoordinates;
+    private MultipartFile picture;
     private LevelEnum level;
     private String videoUrl;
     private Set<CategoryNameEnum> categories;
@@ -45,6 +46,14 @@ public class RouteAddBindingModel {
 
     public void setGpxCoordinates(MultipartFile gpxCoordinates) {
         this.gpxCoordinates = gpxCoordinates;
+    }
+
+    public MultipartFile getPicture() {
+        return picture;
+    }
+
+    public void setPicture(MultipartFile picture) {
+        this.picture = picture;
     }
 
     @NotNull

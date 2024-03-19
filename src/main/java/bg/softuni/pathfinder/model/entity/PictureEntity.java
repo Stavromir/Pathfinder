@@ -13,24 +13,22 @@ public class PictureEntity extends BaseEntity{
     private UserEntity author;
     private RouteEntity route;
 
-    public PictureEntity() {
-        super();
-    }
-
     public String getTitle() {
         return title;
     }
 
-    public void setTitle(String title) {
+    public PictureEntity setTitle(String title) {
         this.title = title;
+        return this;
     }
 
     public String getUrl() {
         return url;
     }
 
-    public void setUrl(String url) {
+    public PictureEntity setUrl(String url) {
         this.url = url;
+        return this;
     }
 
     @ManyToOne
@@ -38,8 +36,9 @@ public class PictureEntity extends BaseEntity{
         return author;
     }
 
-    public void setAuthor(UserEntity author) {
+    public PictureEntity setAuthor(UserEntity author) {
         this.author = author;
+        return this;
     }
 
     @ManyToOne
@@ -47,7 +46,8 @@ public class PictureEntity extends BaseEntity{
         return route;
     }
 
-    public void setRoute(RouteEntity route) {
+    public PictureEntity setRoute(RouteEntity route) {
         this.route = route;
+        return this;
     }
 }

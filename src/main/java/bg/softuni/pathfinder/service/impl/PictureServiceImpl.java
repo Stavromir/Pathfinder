@@ -1,5 +1,7 @@
 package bg.softuni.pathfinder.service.impl;
 
+import bg.softuni.pathfinder.model.binding.RouteAddBindingModel;
+import bg.softuni.pathfinder.model.entity.PictureEntity;
 import bg.softuni.pathfinder.repository.PictureRepository;
 import bg.softuni.pathfinder.service.PictureService;
 import org.springframework.stereotype.Service;
@@ -21,4 +23,5 @@ public class PictureServiceImpl implements PictureService {
 
         return pictureRepository.findAllUrls();
     }
+
 }

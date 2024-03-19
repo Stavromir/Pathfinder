@@ -3,6 +3,7 @@ package bg.softuni.pathfinder.model.entity;
 import bg.softuni.pathfinder.model.entity.enums.LevelEnum;
 import jakarta.persistence.*;
 
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -20,6 +21,8 @@ public class RouteEntity extends BaseEntity{
 
     public RouteEntity() {
         super();
+
+        this.pictures = new HashSet<>();
     }
 
     @Column(columnDefinition = "TEXT")
@@ -75,7 +78,7 @@ public class RouteEntity extends BaseEntity{
         this.videoUrl = videoUrl;
     }
 
-    @OneToMany(mappedBy = "route", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "route", fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
     public Set<PictureEntity> getPictures() {
         return pictures;
     }
@@ -84,7 +87,7 @@ public class RouteEntity extends BaseEntity{
         this.pictures = pictures;
     }
 
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
     public Set<CategoryEntity> getCategories() {
         return categories;
     }

@@ -1,17 +1,20 @@
 package bg.softuni.pathfinder.service.impl;
 
+import bg.softuni.pathfinder.model.binding.RouteAddBindingModel;
 import bg.softuni.pathfinder.model.entity.PictureEntity;
 import bg.softuni.pathfinder.model.entity.RouteEntity;
+import bg.softuni.pathfinder.model.entity.UserEntity;
 import bg.softuni.pathfinder.model.service.RouteServiceModel;
 import bg.softuni.pathfinder.model.view.RouteDetailsViewModel;
 import bg.softuni.pathfinder.model.view.RouteViewModel;
 import bg.softuni.pathfinder.repository.RouteRepository;
-import bg.softuni.pathfinder.service.CategoryService;
-import bg.softuni.pathfinder.service.RouteService;
-import bg.softuni.pathfinder.service.UserService;
+import bg.softuni.pathfinder.repository.UserRepository;
+import bg.softuni.pathfinder.service.*;
 import org.modelmapper.ModelMapper;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -19,18 +22,21 @@ import java.util.stream.Collectors;
 public class RouteServiceImpl implements RouteService {
 
     private final RouteRepository routeRepository;
-    private final UserService userService;
-    private final CategoryService categoryService;
+    private final UserRepository userRepository;
     private final ModelMapper modelMapper;
+    private final ImageCloudService imageCloudService;
+    private final PictureService pictureService;
 
     public RouteServiceImpl(RouteRepository routeRepository,
-                            UserService userService,
-                            CategoryService categoryService,
-                            ModelMapper modelMapper) {
+                            UserRepository userRepository,
+                            ModelMapper modelMapper,
+                            ImageCloudService imageCloudService,
+                            PictureService pictureService) {
         this.routeRepository = routeRepository;
-        this.userService = userService;
-        this.categoryService = categoryService;
+        this.userRepository = userRepository;
         this.modelMapper = modelMapper;
+        this.imageCloudService = imageCloudService;
+        this.pictureService = pictureService;
     }
 
     @Override
@@ -54,9 +60,28 @@ public class RouteServiceImpl implements RouteService {
     }
 
     @Override
-    public void addNewRoute(RouteServiceModel routeServiceModel) {
-        RouteEntity map = modelMapper.map(routeServiceModel, RouteEntity.class);
-        routeRepository.save(map);
+    public void addNewRoute(RouteAddBindingModel routeAddBindingModel, String username) throws IOException {
+
+        RouteEntity routeEntity = modelMapper.map(routeAddBindingModel,
+                RouteEntity.class);
+        routeEntity.setGpxCoordinates(new String(routeAddBindingModel
+                .getGpxCoordinates().getBytes()));
+
+        UserEntity user = userRepository.findByUsername(username)
+                .orElseThrow(() -> new UsernameNotFoundException("User not found"));
+
+        String picURL = imageCloudService.saveImageInCloud(routeAddBindingModel.getPicture());
+
+        PictureEntity picture = new PictureEntity()
+                .setRoute(routeEntity)
+                .setTitle(routeAddBindingModel.getName())
+                .setAuthor(user)
+                .setUrl(picURL);
+
+        routeEntity.setAuthor(user);
+        routeEntity.getPictures().add(picture);
+
+        routeRepository.save(routeEntity);
     }
 
 
