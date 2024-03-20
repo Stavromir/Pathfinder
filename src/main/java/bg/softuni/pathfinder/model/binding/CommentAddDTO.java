@@ -5,6 +5,9 @@ public class CommentAddDTO {
 
     private String textContent;
 
+    public CommentAddDTO() {
+    }
+
     public String getTextContent() {
         return textContent;
     }

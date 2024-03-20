@@ -63,6 +63,7 @@ public class RouteController {
     public String details(@PathVariable Long id, Model model) {
 
         model.addAttribute("route", routeService.findRouteById(id));
+        model.addAttribute("id", id);
 
         return "route-details";
     }

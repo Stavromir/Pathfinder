@@ -3,11 +3,12 @@
 
 <head th:replace="~{fragments/commons::head}"></head>
 <body>
-<div class="wrapper">
+<div class="wrapper" th:object="${route}">
     <header th:replace="~{fragments/commons::navigation}"></header>
 
-    <input type="hidden" name="routeId" id="routeId">   
-    <div class="details-main" th:object="${route}">
+    <input type="hidden" name="routeId" id="routeId" th:value="${id}">
+
+    <div class="details-main">
         <section class="route-info text-center">
             <h4 id="track-name" th:text="*{name}"></h4>
             <p>Total distance: <span id="totalDistance"></span> km</p>
@@ -62,7 +63,8 @@
 
             <div>
                 <!-- Comments submission -->
-                <form id="commentForm" method="POST"
+                <form id="commentForm"
+                      method="POST"
                       action="/">
                     <div class="form-group">
                         <h4>Leave a comment</h4>
@@ -99,8 +101,9 @@
     </div>
 	<!-- Scripts: track and comments 
     <script th:src="@{/js/track.js}"></script>
+    -->
     <script th:src="@{/js/comments.js}"></script>
-	-->
+
 </div>
 <footer th:replace="~{fragments/commons::footer}"></footer>
 </body>

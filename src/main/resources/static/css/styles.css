@@ -232,6 +232,7 @@ footer {
     background-color: var(--lightGray);
     padding: 20px;
     border-radius: 10px;
+    margin-bottom: 8px;
 }
 
 .route-info {

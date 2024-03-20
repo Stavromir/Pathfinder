@@ -15,6 +15,7 @@ import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 @Component
 public class CommentServiceImpl implements CommentService {
@@ -60,6 +61,12 @@ public class CommentServiceImpl implements CommentService {
                 .setRoute(route);
 
         return commentRepository.save(comment);
+    }
+
+    @Override
+    public CommentEntity getCommentById(Long commentId) {
+        return commentRepository.findById(commentId)
+                .orElseThrow(() -> new IllegalArgumentException("Comment not exist"));
     }
 
     private RouteEntity getRouteEntity(Long routeID) {
